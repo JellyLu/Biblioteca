@@ -10,6 +10,10 @@ public class ConsoleTool {
         System.out.println(outPutString);
     }
 
+    public static void log(String outPutString) {
+        System.out.print(outPutString);
+    }
+
     public static String inputFromConsole() {
         Scanner scan = new Scanner(System.in);
 
