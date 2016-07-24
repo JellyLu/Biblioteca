@@ -13,13 +13,6 @@ import java.util.List;
  */
 public class MainView {
     private MenuList menu = new MainMenuList();
-    private MessageConstrants msgConstants = new MessageConstrants();
-
-    public void showMainView() {
-        for (MenuItem item: menu.list) {
-            ConsoleTool.logln(item.describe);
-        }
-    }
 
     public List<MenuItem> menuList() {
         return menu.list;
