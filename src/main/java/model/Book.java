@@ -12,6 +12,7 @@ public final class Book {
     public Book(String id, String bookName, String author, int year) {
         this.id = id;
         this.bookName = bookName;
+        this.author = author;
         this.year = year;
     }
 
@@ -29,6 +30,10 @@ public final class Book {
 
     public int getYear() {
         return year;
+    }
+
+    public String description() {
+        return "id: " + id + ", bookName: " + bookName + ", author: " + author + ", publish year: " + year;
     }
 }
 
