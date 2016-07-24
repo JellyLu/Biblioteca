@@ -36,6 +36,11 @@ public class BookListView {
     }
 
     public boolean returnBook(String bookId) throws Exception {
+        List<Book> checkedOutBookList = bookList.getCheckedOutBookList();
+        if ( checkedOutBookList == null ) {
+            return false;
+        }
+
         for (Book book: bookList.getCheckedOutBookList()) {
             if (book.getId().equals(bookId)) {
                 return bookList.removeBookFromCheckedOutBookList(book);

@@ -70,6 +70,11 @@ public class Controller {
     }
 
     private void checkOutBook() throws Exception {
+        if (bookListView.showBookList().isEmpty()) {
+            ConsoleTool.logln(msgContrants.MSG_NO_BOOK_TO_CHECK_OUT);
+            routerToBookListView();
+            return;
+        }
         ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_CHECKOUT_BOOK);
         String bookId = userInputString();
         if ( bookListView.checkOutBook(bookId)) {
@@ -82,6 +87,11 @@ public class Controller {
     }
 
     private void returnBook() throws Exception {
+        if (bookListView.chechedOutBookList().isEmpty()) {
+            ConsoleTool.logln(msgContrants.MSG_NO_BOOK_TO_RETURN);
+            routerToBookListView();
+            return;
+        }
         ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_RETURN_BOOK);
         String bookId = userInputString();
         if ( bookListView.returnBook(bookId)) {
@@ -93,7 +103,7 @@ public class Controller {
         }
     }
 
-    public void actionForBookListMenuOption(int index) throws Exception {
+    private void actionForBookListMenuOption(int index) throws Exception {
         switch (index) {
             case 0:
                 exit(0);

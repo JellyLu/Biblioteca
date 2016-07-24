@@ -33,7 +33,7 @@ public final class Book {
     }
 
     public String description() {
-        return "id: " + id + ", bookName: " + bookName + ", author: " + author + ", publish year: " + year;
+        return "[id]: " + id + ", [bookName]: " + bookName + ", [author]: " + author + ", [publish year]: " + year;
     }
 }
 

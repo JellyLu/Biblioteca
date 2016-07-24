@@ -46,6 +46,13 @@ public class BookList {
     }
 
     public boolean removeBookFromShowBookList(Book book) throws Exception{
+        if (this.showBookList.isEmpty()) {
+            return false;
+        }
+        if (this.checkedOutBookList.isEmpty()) {
+            this.checkedOutBookList = new ArrayList<Book>();
+        }
+
         Iterator<Book> iter = this.showBookList.iterator();
         while(iter.hasNext()){
             if(iter.next().getId().equals(book.getId())) {
@@ -58,6 +65,13 @@ public class BookList {
     }
 
     public boolean removeBookFromCheckedOutBookList(Book book) throws Exception{
+        if (this.checkedOutBookList.isEmpty()) {
+            return false;
+        }
+        if (this.showBookList.isEmpty()) {
+            this.showBookList = new ArrayList<Book>();
+        }
+
         Iterator<Book> iter = this.checkedOutBookList.iterator();
         while(iter.hasNext()){
             if(iter.next().getId().equals(book.getId())) {

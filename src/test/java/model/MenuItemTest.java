@@ -14,7 +14,7 @@ public class MenuItemTest {
     @Test
     public void should_return_describe_combine_by_code_and_name(){
         MenuItem item = new MenuItem(2, "quit");
-        assertThat(item.describe, is("2: quit"));
+        assertThat(item.describe, is("<2>: quit"));
         assertThat(item.code, is(2));
         assertThat(item.name, is("quit"));
     }

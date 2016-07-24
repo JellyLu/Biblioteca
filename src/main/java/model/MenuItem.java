@@ -23,6 +23,6 @@ public class MenuItem {
     public MenuItem(int code, String name) {
         this.code = code;
         this.name = name;
-        this.describe = this.code + ": " + this.name;
+        this.describe = "<" + this.code + ">: " + this.name;
     }
 }
