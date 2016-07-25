@@ -1,6 +1,7 @@
 package model;
 
 import data.LibraryData;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -15,23 +16,28 @@ import static org.hamcrest.core.Is.is;
  * Created by yjlu@thoughtworks.com on 7/24/16.
  */
 public class BookListTest {
-    private List<Book> allBooks = new LibraryData().BOOK_LIST;
+    private BookList list;
+
+    @Before
+    public void setUp() {
+        List<Book> allBooks = new LibraryData().BOOK_LIST;
+        list = new BookList(allBooks);
+    }
 
     @Test
     public void should_return_5_when_the_library_has_5_books() throws Exception {
-        List<Book> list = new BookList(allBooks).getAllBookList();
-        assertThat(list.size(), is(5));
+        List<Book> allBookList = list.getAllBookList();
+        assertThat(allBookList.size(), is(5));
     }
 
     @Test
     public void should_return_5_when_no_checked_out_books() throws Exception {
-        List<Book> list = new BookList(allBooks).getShowBookList();
-        assertThat(list.size(), is(5));
+        List<Book> showBookList = list.getShowBookList();
+        assertThat(showBookList.size(), is(5));
     }
 
     @Test
     public void should_return_true_when_checked_out_one_book_successsful() throws Exception {
-        BookList list = new BookList(allBooks);
         Book book = new Book("B_0003", "Test-Driven Development by Example", "Kent Beck", 2003);
 
         assertThat(list.removeBookFromShowBookList(book), is(true));
@@ -47,7 +53,6 @@ public class BookListTest {
 
     @Test
     public void should_return_false_when_checked_out_one_book_failed() throws Exception {
-        BookList list = new BookList(allBooks);
         Book book = new Book("B_0006", "Test", "Failed", 2016);
 
         assertThat(list.removeBookFromShowBookList(book), is(false));
@@ -63,7 +68,6 @@ public class BookListTest {
 
     @Test
     public void should_return_true_when_return_one_book_successful() throws Exception {
-        BookList list = new BookList(allBooks);
         Book book1 = new Book("B_0003", "Test-Driven Development by Example", "Kent Beck", 2003);
         Book book2 = new Book("B_0005", "Effective Java", "Joshua Bloch", 2001);
         list.setCheckedOutBookList(new ArrayList<Book>(){{
@@ -84,7 +88,6 @@ public class BookListTest {
 
     @Test
     public void should_return_false_when_return_one_book_failed() throws Exception {
-        BookList list = new BookList(allBooks);
         Book book1 = new Book("B_0003", "Test-Driven Development by Example", "Kent Beck", 2003);
         Book book2 = new Book("B_0005", "Effective Java", "Joshua Bloch", 2001);
         list.setCheckedOutBookList(new ArrayList<Book>(){{

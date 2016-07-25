@@ -19,7 +19,7 @@ public class MovieListTest {
     @Before
     public void setUp() {
         List<Movie> allMovies = new LibraryData().MOVIE_LIST;
-        list = new MovieList(allMovies); 
+        list = new MovieList(allMovies);
     }
 
 
