@@ -1,10 +1,12 @@
 package controller;
 
+import model.AccountMenuList;
 import model.Book;
 import model.MenuItem;
 import model.User;
 import tools.ConsoleTool;
 import tools.MessageConstrants;
+import views.AccountView;
 import views.BookListView;
 import views.MainView;
 import views.LoginView;
@@ -21,28 +23,14 @@ public class Controller {
     private MainView mainView = new MainView();
     private BookListView bookListView = new BookListView();
     private LoginView loginView = new LoginView();
-    private User user;
+    private AccountView accountView;
+
     private String userName = "";
     private String password = "";
 
     private void welcome() throws Exception {
         ConsoleTool.logln(msgContrants.MSG_WELCOME);
         routToLoginView();
-    }
-
-    private void routToLoginView() throws Exception {
-        ConsoleTool.logln(msgContrants.MSG_LOGIN);
-        ConsoleTool.log(msgContrants.MSG_USER_INPUT_LIBRARY_NUMBER);
-        userName = userInputString();
-        ConsoleTool.log(msgContrants.MSG_USER_INPUT_PASSWORD);
-        password = userInputString();
-        if (loginView.login(userName, password)) {
-            user = loginView.getUser();
-            routerToMainView();
-        } else {
-            ConsoleTool.logln(msgContrants.ERR_LOGIN_FAILED);
-            routToLoginView();
-        }
     }
 
     private void showMenu(List<MenuItem> menuItemList) {
@@ -68,6 +56,20 @@ public class Controller {
         ConsoleTool.log(msgContrants.MSG_USER_SELECT_MENU);
     }
 
+    private void showLoginView() {
+        ConsoleTool.logln(msgContrants.MSG_LOGIN);
+        ConsoleTool.log(msgContrants.MSG_USER_INPUT_LIBRARY_NUMBER);
+        userName = userInputString();
+        ConsoleTool.log(msgContrants.MSG_USER_INPUT_PASSWORD);
+        password = userInputString();
+    }
+
+    private void showAccountView() {
+        ConsoleTool.logln(accountView.description());
+        showMenu(accountView.menuList());
+        ConsoleTool.log(msgContrants.MSG_USER_SELECT_MENU);
+    }
+
     private int userInputInt() {
         return Integer.parseInt(userInputString());
     }
@@ -83,6 +85,12 @@ public class Controller {
                 break;
             case 1:
                 routerToBookListView();
+                break;
+            case 2:
+
+                break;
+            case 3:
+                routToAccountView();
                 break;
             default:
                 ConsoleTool.logln(msgContrants.ERR_INVALID_MENU_OPTION);
@@ -146,6 +154,38 @@ public class Controller {
         }
     }
 
+    private void actionForAccountMenuOption(int index) throws Exception {
+        switch (index) {
+            case 0:
+                exit(0);
+                break;
+            case 1:
+                routerToMainView();
+                break;
+            case 2:
+                routerToBookListView();
+                break;
+            case 3:
+
+                break;
+            default:
+                ConsoleTool.logln(msgContrants.ERR_INVALID_MENU_OPTION);
+                showBookListView();
+                break;
+        }
+    }
+
+    private void routToLoginView() throws Exception {
+        showLoginView();
+        if (loginView.login(userName, password)) {
+            accountView = new AccountView(loginView.getUser());
+            routerToMainView();
+        } else {
+            ConsoleTool.logln(msgContrants.ERR_LOGIN_FAILED);
+            routToLoginView();
+        }
+    }
+
     public void routerToMainView() throws Exception {
         showMainView();
         int menuOption = userInputInt();
@@ -158,6 +198,12 @@ public class Controller {
         actionForBookListMenuOption(menuOption);
     }
 
+
+    public void routToAccountView() throws Exception {
+        showAccountView();
+        int menuOption = userInputInt();
+        actionForAccountMenuOption(menuOption);
+    }
 
     public static void main(String[] args) {
         try {

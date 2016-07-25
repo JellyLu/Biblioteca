@@ -15,6 +15,6 @@ public class MainView {
     private MenuList menu = new MainMenuList();
 
     public List<MenuItem> menuList() {
-        return menu.list;
+        return menu.getList();
     }
 }

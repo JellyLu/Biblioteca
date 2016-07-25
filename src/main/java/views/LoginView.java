@@ -36,11 +36,6 @@ public class LoginView {
         return false;
     }
 
-    public String description() {
-        if (user == null) return "";
-        return user.description();
-    }
-
     public User getUser() {
         return user;
     }

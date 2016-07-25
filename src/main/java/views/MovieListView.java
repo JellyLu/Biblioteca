@@ -13,7 +13,7 @@ public class MovieListView {
     private MovieList MovieList = new MovieList(new LibraryData().MOVIE_LIST);
 
     public List<MenuItem> menuList() {
-        return menu.list;
+        return menu.getList();
     }
 
     public List<Movie> showMovieList() {

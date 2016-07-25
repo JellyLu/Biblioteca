@@ -9,6 +9,8 @@ public class MainMenuList extends MenuList {
     public MainMenuList() {
         this.list = new ArrayList<MenuItem>(){{
             add(new MenuItem(1, "Book List"));
+            add(new MenuItem(2, "Movie List"));
+            add(new MenuItem(3, "Account"));
             add(new MenuItem(0, "quit"));
         }};
     }

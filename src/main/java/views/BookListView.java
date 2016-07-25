@@ -15,7 +15,7 @@ public class BookListView {
     private BookList bookList = new BookList(new LibraryData().BOOK_LIST);
 
     public List<MenuItem> menuList() {
-        return menu.list;
+        return menu.getList();
     }
 
     public List<Book> showBookList() {
