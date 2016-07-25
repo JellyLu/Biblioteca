@@ -2,10 +2,12 @@ package controller;
 
 import model.Book;
 import model.MenuItem;
+import model.User;
 import tools.ConsoleTool;
 import tools.MessageConstrants;
 import views.BookListView;
 import views.MainView;
+import views.UserAccountView;
 
 import java.util.List;
 
@@ -18,9 +20,27 @@ public class Controller {
     private MessageConstrants msgContrants = new MessageConstrants();
     private MainView mainView = new MainView();
     private BookListView bookListView = new BookListView();
+    private UserAccountView accountView = new UserAccountView();
+    private String userName = "";
+    private String password = "";
 
-    public void welcome() {
+    private void welcome() throws Exception {
         ConsoleTool.logln(msgContrants.MSG_WELCOME);
+        routToLoginView();
+    }
+
+    private void routToLoginView() throws Exception {
+        ConsoleTool.logln(msgContrants.MSG_LOGIN);
+        ConsoleTool.log(msgContrants.MSG_USER_INPUT_LIBRARY_NUMBER);
+        userName = userInputString();
+        ConsoleTool.log(msgContrants.MSG_USER_INPUT_PASSWORD);
+        password = userInputString();
+        if (accountView.login(userName, password)) {
+            routerToMainView();
+        } else {
+            ConsoleTool.logln(msgContrants.ERR_LOGIN_FAILED);
+            routToLoginView();
+        }
     }
 
     private void showMenu(List<MenuItem> menuItemList) {
@@ -139,7 +159,7 @@ public class Controller {
 
     public static void main(String[] args) {
         try {
-            new Controller().routerToMainView();
+            new Controller().welcome();
         } catch (Exception e) {
             ConsoleTool.logln(e.toString());
         }
