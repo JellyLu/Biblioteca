@@ -12,6 +12,6 @@ public class MovieTest {
     @Test
     public void should_return_right_description(){
         Movie movie = new Movie("M_0001", "Test Movie Name", "Director Lu", 2016, 9);
-        assertThat(movie.description(), is("[id]: M_0001, [name]: Test Movie Name, [director]: Director Lu, [year]: 2016, [rating]: 9"));
+        assertThat(movie.description(), is("[id]: M_0001, [name]: Test Movie Name, [director]: Director Lu, [year]: 2016, [rating]: 9.0"));
     }
 }

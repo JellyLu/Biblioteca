@@ -7,7 +7,7 @@ import tools.ConsoleTool;
 import tools.MessageConstrants;
 import views.BookListView;
 import views.MainView;
-import views.UserAccountView;
+import views.LoginView;
 
 import java.util.List;
 
@@ -20,7 +20,8 @@ public class Controller {
     private MessageConstrants msgContrants = new MessageConstrants();
     private MainView mainView = new MainView();
     private BookListView bookListView = new BookListView();
-    private UserAccountView accountView = new UserAccountView();
+    private LoginView loginView = new LoginView();
+    private User user;
     private String userName = "";
     private String password = "";
 
@@ -35,7 +36,8 @@ public class Controller {
         userName = userInputString();
         ConsoleTool.log(msgContrants.MSG_USER_INPUT_PASSWORD);
         password = userInputString();
-        if (accountView.login(userName, password)) {
+        if (loginView.login(userName, password)) {
+            user = loginView.getUser();
             routerToMainView();
         } else {
             ConsoleTool.logln(msgContrants.ERR_LOGIN_FAILED);

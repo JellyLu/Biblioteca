@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by yjlu@thoughtworks.com on 7/25/16.
  */
-public class UserAccountView {
+public class LoginView {
     private User user;
 
     private User getUserById(String userId) {
@@ -39,5 +39,9 @@ public class UserAccountView {
     public String description() {
         if (user == null) return "";
         return user.description();
+    }
+
+    public User getUser() {
+        return user;
     }
 }
