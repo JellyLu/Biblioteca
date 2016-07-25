@@ -8,9 +8,9 @@ public class Movie {
     private String name;
     private String director;
     private int year;
-    private int rating = 0;
+    private double rating = 0;
 
-    public Movie(String id, String name, String director, int year, int rating) {
+    public Movie(String id, String name, String director, int year, double rating) {
         this.id = id;
         this.name = name;
         this.director = director;
@@ -41,7 +41,7 @@ public class Movie {
         return year;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
