@@ -1,15 +1,9 @@
 package controller;
 
-import model.AccountMenuList;
-import model.Book;
-import model.MenuItem;
-import model.User;
+import model.*;
 import tools.ConsoleTool;
 import tools.MessageConstrants;
-import views.AccountView;
-import views.BookListView;
-import views.MainView;
-import views.LoginView;
+import views.*;
 
 import java.util.List;
 
@@ -22,6 +16,7 @@ public class Controller {
     private MessageConstrants msgContrants = new MessageConstrants();
     private MainView mainView = new MainView();
     private BookListView bookListView = new BookListView();
+    private MovieListView movieListView = new MovieListView();
     private LoginView loginView = new LoginView();
     private AccountView accountView;
 
@@ -56,6 +51,18 @@ public class Controller {
         ConsoleTool.log(msgContrants.MSG_USER_SELECT_MENU);
     }
 
+    private void showMovieList(List<Movie> movieList) {
+        for (Movie movie: movieList) {
+            ConsoleTool.logln(movie.description());
+        }
+    }
+
+    private void showMovieListView() {
+        showMovieList(movieListView.showMovieList());
+        showMenu(movieListView.menuList());
+        ConsoleTool.log(msgContrants.MSG_USER_SELECT_MENU);
+    }
+
     private void showLoginView() {
         ConsoleTool.logln(msgContrants.MSG_LOGIN);
         ConsoleTool.log(msgContrants.MSG_USER_INPUT_LIBRARY_NUMBER);
@@ -76,27 +83,6 @@ public class Controller {
 
     private String userInputString() {
         return ConsoleTool.inputFromConsole();
-    }
-
-    private void  actionForMainMenuOption(int index) throws Exception {
-        switch (index) {
-            case 0:
-                exit(0);
-                break;
-            case 1:
-                routerToBookListView();
-                break;
-            case 2:
-
-                break;
-            case 3:
-                routToAccountView();
-                break;
-            default:
-                ConsoleTool.logln(msgContrants.ERR_INVALID_MENU_OPTION);
-                showMainView();
-                break;
-        }
     }
 
     private void checkOutBook() throws Exception {
@@ -133,6 +119,61 @@ public class Controller {
         }
     }
 
+    private void checkOutMovie() throws Exception {
+        if (movieListView.showMovieList().isEmpty()) {
+            ConsoleTool.logln(msgContrants.MSG_NO_BOOK_TO_CHECK_OUT);
+            routerToMovieListView();
+            return;
+        }
+        ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_CHECKOUT_BOOK);
+        String movieId = userInputString();
+        if ( movieListView.checkOutMovie(movieId)) {
+            ConsoleTool.logln(msgContrants.MSG_CHECKED_OUT_SUCCESSFUL);
+            routerToMovieListView();
+        } else {
+            ConsoleTool.logln(msgContrants.ERR_INVALID_BOOK_FOR_CHECKED_OUT);
+            checkOutMovie();
+        }
+    }
+
+    private void returnMovie() throws Exception {
+        if (movieListView.chechedOutMovieList().isEmpty()) {
+            ConsoleTool.logln(msgContrants.MSG_NO_BOOK_TO_RETURN);
+            routerToMovieListView();
+            return;
+        }
+        ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_RETURN_BOOK);
+        String movieId = userInputString();
+        if ( movieListView.returnMovie(movieId)) {
+            ConsoleTool.logln(msgContrants.MSG_RETURN_BOOK_SUCCESSFUL);
+            routerToMovieListView();
+        } else {
+            ConsoleTool.logln(msgContrants.ERR_INVALID_BOOK_FOR_RETURN);
+            returnMovie();
+        }
+    }
+
+    private void  actionForMainMenuOption(int index) throws Exception {
+        switch (index) {
+            case 0:
+                exit(0);
+                break;
+            case 1:
+                routerToBookListView();
+                break;
+            case 2:
+                routerToMovieListView();
+                break;
+            case 3:
+                routToAccountView();
+                break;
+            default:
+                ConsoleTool.logln(msgContrants.ERR_INVALID_MENU_OPTION);
+                showMainView();
+                break;
+        }
+    }
+
     private void actionForBookListMenuOption(int index) throws Exception {
         switch (index) {
             case 0:
@@ -154,6 +195,27 @@ public class Controller {
         }
     }
 
+    private void actionForMovieListMenuOption(int index) throws Exception {
+        switch (index) {
+            case 0:
+                exit(0);
+                break;
+            case 1:
+                routerToMainView();
+                break;
+            case 2:
+                checkOutMovie();
+                break;
+            case 3:
+                returnMovie();
+                break;
+            default:
+                ConsoleTool.logln(msgContrants.ERR_INVALID_MENU_OPTION);
+                showMovieListView();
+                break;
+        }
+    }
+
     private void actionForAccountMenuOption(int index) throws Exception {
         switch (index) {
             case 0:
@@ -166,7 +228,7 @@ public class Controller {
                 routerToBookListView();
                 break;
             case 3:
-
+                routerToMovieListView();
                 break;
             default:
                 ConsoleTool.logln(msgContrants.ERR_INVALID_MENU_OPTION);
@@ -196,6 +258,12 @@ public class Controller {
         showBookListView();
         int menuOption = userInputInt();
         actionForBookListMenuOption(menuOption);
+    }
+
+    public void routerToMovieListView() throws Exception {
+        showMovieListView();
+        int menuOption = userInputInt();
+        actionForMovieListMenuOption(menuOption);
     }
 
 
