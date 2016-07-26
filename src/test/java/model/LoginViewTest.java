@@ -38,16 +38,4 @@ public class LoginViewTest {
 
         assertThat(isLogin, is(false));
     }
-
-    @Test
-    public void should_return_empty_string_when_user_not_login() {
-        assertThat(loginView.description(), is(""));
-    }
-
-    @Test
-    public void should_return_right_description_when_user_login() {
-        loginView.login("xxx-0001", "Test1234");
-
-        assertThat(loginView.description(), is("[Library number]: xxx-0001, [name]: Joy, [Email]: joy@thougtworks.com, [Tel]: 15881616205"));
-    }
 }
