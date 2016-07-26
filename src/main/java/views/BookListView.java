@@ -22,28 +22,28 @@ public class BookListView {
         return itemList.getShowItemList();
     }
 
-    public List<Item> chechedOutItemList() {
+    public List<Item> checkedOutItemList() {
         return itemList.getCheckedOutItemList();
     }
 
-    public boolean checkOutBook(String bookId) throws Exception {
-        for (Item book: itemList.getShowItemList()) {
-            if (book.getId().equals(bookId)) {
-              return itemList.removeItemFromShowItemList(book);
+    public boolean checkOutItem(String bookId) throws Exception {
+        for (Item item: itemList.getShowItemList()) {
+            if (item.getId().equals(bookId)) {
+              return itemList.removeItemFromShowItemList(item);
             }
         }
         return false;
     }
 
-    public boolean returnBook(String bookId) throws Exception {
+    public boolean returnItem(String bookId) throws Exception {
         List<Item> checkedOutItemList = itemList.getCheckedOutItemList();
         if ( checkedOutItemList == null ) {
             return false;
         }
 
-        for (Item book: checkedOutItemList) {
-            if (book.getId().equals(bookId)) {
-                return itemList.removeItemFromCheckedOutItemList(book);
+        for (Item item: checkedOutItemList) {
+            if (item.getId().equals(bookId)) {
+                return itemList.removeItemFromCheckedOutItemList(item);
             }
         }
         return false;

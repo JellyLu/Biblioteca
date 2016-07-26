@@ -20,20 +20,20 @@ public class MovieListView {
         return itemList.getShowItemList();
     }
 
-    public List<Item> chechedOutItemList() {
+    public List<Item> checkedOutItemList() {
         return itemList.getCheckedOutItemList();
     }
 
-    public boolean checkOutMovie(String movieId) throws Exception {
-        for (Item movie: itemList.getShowItemList()) {
-            if (movie.getId().equals(movieId)) {
-                return itemList.removeItemFromShowItemList(movie);
+    public boolean checkOutItem(String movieId) throws Exception {
+        for (Item item: itemList.getShowItemList()) {
+            if (item.getId().equals(movieId)) {
+                return itemList.removeItemFromShowItemList(item);
             }
         }
         return false;
     }
 
-    public boolean returnMovie(String MovieId) throws Exception {
+    public boolean returnItem(String MovieId) throws Exception {
         List<Item> checkedOutItemList = itemList.getCheckedOutItemList();
         if ( checkedOutItemList == null ) {
             return false;

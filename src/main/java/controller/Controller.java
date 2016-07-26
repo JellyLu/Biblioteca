@@ -93,7 +93,7 @@ public class Controller {
         }
         ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_CHECKOUT("book"));
         String bookId = userInputString();
-        if ( bookListView.checkOutBook(bookId)) {
+        if ( bookListView.checkOutItem(bookId)) {
             ConsoleTool.logln(msgContrants.MSG_CHECKED_OUT_SUCCESSFUL("book"));
             routerToBookListView();
         } else {
@@ -103,14 +103,14 @@ public class Controller {
     }
 
     private void returnBook() throws Exception {
-        if (bookListView.chechedOutItemList().isEmpty()) {
+        if (bookListView.checkedOutItemList().isEmpty()) {
             ConsoleTool.logln(msgContrants.MSG_NO_ITEM_TO_RETURN("book"));
             routerToBookListView();
             return;
         }
         ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_RETURN("book"));
         String bookId = userInputString();
-        if ( bookListView.returnBook(bookId)) {
+        if ( bookListView.returnItem(bookId)) {
             ConsoleTool.logln(msgContrants.MSG_RETURN_ITEM_SUCCESSFUL("book"));
             routerToBookListView();
         } else {
@@ -127,7 +127,7 @@ public class Controller {
         }
         ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_CHECKOUT("movie"));
         String movieId = userInputString();
-        if ( movieListView.checkOutMovie(movieId)) {
+        if ( movieListView.checkOutItem(movieId)) {
             ConsoleTool.logln(msgContrants.MSG_CHECKED_OUT_SUCCESSFUL("movie"));
             routerToMovieListView();
         } else {
@@ -137,14 +137,14 @@ public class Controller {
     }
 
     private void returnMovie() throws Exception {
-        if (movieListView.chechedOutItemList().isEmpty()) {
+        if (movieListView.checkedOutItemList().isEmpty()) {
             ConsoleTool.logln(msgContrants.MSG_NO_ITEM_TO_RETURN("movie"));
             routerToMovieListView();
             return;
         }
         ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_RETURN("movie"));
         String movieId = userInputString();
-        if ( movieListView.returnMovie(movieId)) {
+        if ( movieListView.returnItem(movieId)) {
             ConsoleTool.logln(msgContrants.MSG_RETURN_ITEM_SUCCESSFUL("movie"));
             routerToMovieListView();
         } else {
