@@ -39,14 +39,14 @@ public class Controller {
         ConsoleTool.log(msgContrants.MSG_USER_SELECT_MENU);
     }
 
-    private void showBookList(List<Book> bookList) {
-        for (Book book: bookList) {
+    private void showBookList(List<Item> bookList) {
+        for (Item book: bookList) {
             ConsoleTool.logln(book.description());
         }
     }
 
     private void showBookListView() {
-        showBookList(bookListView.showBookList());
+        showBookList(bookListView.showItemList());
         showMenu(bookListView.menuList());
         ConsoleTool.log(msgContrants.MSG_USER_SELECT_MENU);
     }
@@ -86,7 +86,7 @@ public class Controller {
     }
 
     private void checkOutBook() throws Exception {
-        if (bookListView.showBookList().isEmpty()) {
+        if (bookListView.showItemList().isEmpty()) {
             ConsoleTool.logln(msgContrants.MSG_NO_BOOK_TO_CHECK_OUT);
             routerToBookListView();
             return;
@@ -103,7 +103,7 @@ public class Controller {
     }
 
     private void returnBook() throws Exception {
-        if (bookListView.chechedOutBookList().isEmpty()) {
+        if (bookListView.chechedOutItemList().isEmpty()) {
             ConsoleTool.logln(msgContrants.MSG_NO_BOOK_TO_RETURN);
             routerToBookListView();
             return;

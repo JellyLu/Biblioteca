@@ -3,7 +3,7 @@ package model;
 /**
  * Created by yjlu@thoughtworks.com on 7/24/16.
  */
-public final class Book {
+public final class Book implements Item {
     private String id;
     private String bookName;
     private String author;
@@ -16,10 +16,6 @@ public final class Book {
         this.year = year;
     }
 
-    public String getId() {
-        return id;
-    }
-
     public String getBookName() {
         return bookName;
     }
@@ -30,6 +26,11 @@ public final class Book {
 
     public int getYear() {
         return year;
+    }
+
+    @Override
+    public String getId() {
+        return id;
     }
 
     public String description() {

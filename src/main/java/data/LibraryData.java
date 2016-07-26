@@ -1,6 +1,7 @@
 package data;
 
 import model.Book;
+import model.Item;
 import model.Movie;
 import model.User;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * Created by yjlu@thoughtworks.com on 7/24/16.
  */
 public final class LibraryData {
-    public final List<Book> BOOK_LIST =  new ArrayList<Book>(){{
+    public final List<Item> BOOK_LIST =  new ArrayList<Item>(){{
         add(new Book("B_0001", "Clean Code", "Robert Cecil Martin", 2008));
         add(new Book("B_0002", "Refactoring", "Martin Fowler", 1999));
         add(new Book("B_0003", "Test-Driven Development by Example", "Kent Beck", 2003));

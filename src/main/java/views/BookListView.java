@@ -12,38 +12,38 @@ import java.util.List;
  */
 public class BookListView {
     private MenuList menu = new BookListMenuList();
-    private BookList bookList = new BookList(new LibraryData().BOOK_LIST);
+    private ItemList itemList = new ItemList(new LibraryData().BOOK_LIST);
 
     public List<MenuItem> menuList() {
         return menu.getList();
     }
 
-    public List<Book> showBookList() {
-        return bookList.getShowBookList();
+    public List<Item> showItemList() {
+        return itemList.getShowItemList();
     }
 
-    public List<Book> chechedOutBookList() {
-        return bookList.getCheckedOutBookList();
+    public List<Item> chechedOutItemList() {
+        return itemList.getCheckedOutItemList();
     }
 
     public boolean checkOutBook(String bookId) throws Exception {
-        for (Book book: bookList.getShowBookList()) {
+        for (Item book: itemList.getShowItemList()) {
             if (book.getId().equals(bookId)) {
-              return bookList.removeBookFromShowBookList(book);
+              return itemList.removeItemFromShowItemList(book);
             }
         }
         return false;
     }
 
     public boolean returnBook(String bookId) throws Exception {
-        List<Book> checkedOutBookList = bookList.getCheckedOutBookList();
-        if ( checkedOutBookList == null ) {
+        List<Item> checkedOutItemList = itemList.getCheckedOutItemList();
+        if ( checkedOutItemList == null ) {
             return false;
         }
 
-        for (Book book: bookList.getCheckedOutBookList()) {
+        for (Item book: itemList.getCheckedOutItemList()) {
             if (book.getId().equals(bookId)) {
-                return bookList.removeBookFromCheckedOutBookList(book);
+                return itemList.removeItemFromCheckedOutItemList(book);
             }
         }
         return false;
