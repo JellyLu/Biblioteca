@@ -41,7 +41,7 @@ public class BookListView {
             return false;
         }
 
-        for (Item book: itemList.getCheckedOutItemList()) {
+        for (Item book: checkedOutItemList) {
             if (book.getId().equals(bookId)) {
                 return itemList.removeItemFromCheckedOutItemList(book);
             }

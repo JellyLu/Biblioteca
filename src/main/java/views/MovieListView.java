@@ -10,38 +10,38 @@ import java.util.List;
  */
 public class MovieListView {
     private MenuList menu = new MovieMenuList();
-    private MovieList MovieList = new MovieList(new LibraryData().MOVIE_LIST);
+    private ItemList itemList = new ItemList(new LibraryData().MOVIE_LIST);
 
     public List<MenuItem> menuList() {
         return menu.getList();
     }
 
-    public List<Movie> showMovieList() {
-        return MovieList.getShowMovieList();
+    public List<Item> showItemList() {
+        return itemList.getShowItemList();
     }
 
-    public List<Movie> chechedOutMovieList() {
-        return MovieList.getCheckedOutMovieList();
+    public List<Item> chechedOutItemList() {
+        return itemList.getCheckedOutItemList();
     }
 
-    public boolean checkOutMovie(String MovieId) throws Exception {
-        for (Movie Movie: MovieList.getShowMovieList()) {
-            if (Movie.getId().equals(MovieId)) {
-                return MovieList.removeMovieFromShowMovieList(Movie);
+    public boolean checkOutMovie(String movieId) throws Exception {
+        for (Item movie: itemList.getShowItemList()) {
+            if (movie.getId().equals(movieId)) {
+                return itemList.removeItemFromShowItemList(movie);
             }
         }
         return false;
     }
 
     public boolean returnMovie(String MovieId) throws Exception {
-        List<Movie> checkedOutMovieList = MovieList.getCheckedOutMovieList();
-        if ( checkedOutMovieList == null ) {
+        List<Item> checkedOutItemList = itemList.getCheckedOutItemList();
+        if ( checkedOutItemList == null ) {
             return false;
         }
 
-        for (Movie Movie: MovieList.getCheckedOutMovieList()) {
-            if (Movie.getId().equals(MovieId)) {
-                return MovieList.removeMovieFromCheckedOutMovieList(Movie);
+        for (Item movie: checkedOutItemList) {
+            if (movie.getId().equals(MovieId)) {
+                return itemList.removeItemFromCheckedOutItemList(movie);
             }
         }
         return false;

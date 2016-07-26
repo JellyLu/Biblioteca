@@ -3,7 +3,7 @@ package model;
 /**
  * Created by yjlu@thoughtworks.com on 7/25/16.
  */
-public class Movie {
+public class Movie implements Item {
     private String id;
     private String name;
     private String director;

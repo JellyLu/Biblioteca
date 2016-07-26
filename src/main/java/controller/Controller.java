@@ -51,14 +51,14 @@ public class Controller {
         ConsoleTool.log(msgContrants.MSG_USER_SELECT_MENU);
     }
 
-    private void showMovieList(List<Movie> movieList) {
-        for (Movie movie: movieList) {
+    private void showMovieList(List<Item> movieList) {
+        for (Item movie: movieList) {
             ConsoleTool.logln(movie.description());
         }
     }
 
     private void showMovieListView() {
-        showMovieList(movieListView.showMovieList());
+        showMovieList(movieListView.showItemList());
         showMenu(movieListView.menuList());
         ConsoleTool.log(msgContrants.MSG_USER_SELECT_MENU);
     }
@@ -87,68 +87,68 @@ public class Controller {
 
     private void checkOutBook() throws Exception {
         if (bookListView.showItemList().isEmpty()) {
-            ConsoleTool.logln(msgContrants.MSG_NO_BOOK_TO_CHECK_OUT);
+            ConsoleTool.logln(msgContrants.MSG_NO_ITEM_TO_CHECK_OUT);
             routerToBookListView();
             return;
         }
-        ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_CHECKOUT_BOOK);
+        ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_CHECKOUT("book"));
         String bookId = userInputString();
         if ( bookListView.checkOutBook(bookId)) {
-            ConsoleTool.logln(msgContrants.MSG_CHECKED_OUT_SUCCESSFUL);
+            ConsoleTool.logln(msgContrants.MSG_CHECKED_OUT_SUCCESSFUL("book"));
             routerToBookListView();
         } else {
-            ConsoleTool.logln(msgContrants.ERR_INVALID_BOOK_FOR_CHECKED_OUT);
+            ConsoleTool.logln(msgContrants.ERR_INVALID_ITEM_FOR_CHECKED_OUT("book"));
             checkOutBook();
         }
     }
 
     private void returnBook() throws Exception {
         if (bookListView.chechedOutItemList().isEmpty()) {
-            ConsoleTool.logln(msgContrants.MSG_NO_BOOK_TO_RETURN);
+            ConsoleTool.logln(msgContrants.MSG_NO_ITEM_TO_RETURN("book"));
             routerToBookListView();
             return;
         }
-        ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_RETURN_BOOK);
+        ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_RETURN("book"));
         String bookId = userInputString();
         if ( bookListView.returnBook(bookId)) {
-            ConsoleTool.logln(msgContrants.MSG_RETURN_BOOK_SUCCESSFUL);
+            ConsoleTool.logln(msgContrants.MSG_RETURN_ITEM_SUCCESSFUL("book"));
             routerToBookListView();
         } else {
-            ConsoleTool.logln(msgContrants.ERR_INVALID_BOOK_FOR_RETURN);
+            ConsoleTool.logln(msgContrants.ERR_INVALID_ITEM_FOR_RETURN("book"));
             returnBook();
         }
     }
 
     private void checkOutMovie() throws Exception {
-        if (movieListView.showMovieList().isEmpty()) {
-            ConsoleTool.logln(msgContrants.MSG_NO_BOOK_TO_CHECK_OUT);
+        if (movieListView.showItemList().isEmpty()) {
+            ConsoleTool.logln(msgContrants.MSG_NO_ITEM_TO_CHECK_OUT);
             routerToMovieListView();
             return;
         }
-        ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_CHECKOUT_BOOK);
+        ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_CHECKOUT("movie"));
         String movieId = userInputString();
         if ( movieListView.checkOutMovie(movieId)) {
-            ConsoleTool.logln(msgContrants.MSG_CHECKED_OUT_SUCCESSFUL);
+            ConsoleTool.logln(msgContrants.MSG_CHECKED_OUT_SUCCESSFUL("movie"));
             routerToMovieListView();
         } else {
-            ConsoleTool.logln(msgContrants.ERR_INVALID_BOOK_FOR_CHECKED_OUT);
+            ConsoleTool.logln(msgContrants.ERR_INVALID_ITEM_FOR_CHECKED_OUT("movie"));
             checkOutMovie();
         }
     }
 
     private void returnMovie() throws Exception {
-        if (movieListView.chechedOutMovieList().isEmpty()) {
-            ConsoleTool.logln(msgContrants.MSG_NO_BOOK_TO_RETURN);
+        if (movieListView.chechedOutItemList().isEmpty()) {
+            ConsoleTool.logln(msgContrants.MSG_NO_ITEM_TO_RETURN("movie"));
             routerToMovieListView();
             return;
         }
-        ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_RETURN_BOOK);
+        ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_RETURN("movie"));
         String movieId = userInputString();
         if ( movieListView.returnMovie(movieId)) {
-            ConsoleTool.logln(msgContrants.MSG_RETURN_BOOK_SUCCESSFUL);
+            ConsoleTool.logln(msgContrants.MSG_RETURN_ITEM_SUCCESSFUL("movie"));
             routerToMovieListView();
         } else {
-            ConsoleTool.logln(msgContrants.ERR_INVALID_BOOK_FOR_RETURN);
+            ConsoleTool.logln(msgContrants.ERR_INVALID_ITEM_FOR_RETURN("movie"));
             returnMovie();
         }
     }

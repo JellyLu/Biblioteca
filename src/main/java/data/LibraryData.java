@@ -21,7 +21,7 @@ public final class LibraryData {
         add(new Book("B_0005", "Effective Java", "Joshua Bloch", 2001));
     }};
 
-    public final List<Movie> MOVIE_LIST = new ArrayList<Movie>(){{
+    public final List<Item> MOVIE_LIST = new ArrayList<Item>(){{
         add(new Movie("M_1000", "The Godfather", "Francis Ford Coppola", 1972, 9.2));
         add(new Movie("M_2000", "Forrest Gump", "Robert Zemeckis", 1994, 8.8));
         add(new Movie("M_3000", "The Lord of the Rings: The Return of the King", " Peter Jackson", 2003, 8.9));
