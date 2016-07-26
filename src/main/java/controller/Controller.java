@@ -3,20 +3,18 @@ package controller;
 import data.LibraryData;
 import model.*;
 import tools.ConsoleTool;
-import tools.MessageConstrants;
+import tools.MessageConstants;
 import views.*;
 
 import java.util.List;
 
-import static com.sun.tools.doclint.Entity.ge;
 import static java.lang.System.exit;
-import static java.lang.System.in;
 
 /**
  * Created by yjlu@thoughtworks.com on 7/24/16.
  */
 public class Controller {
-    private MessageConstrants msgContrants = new MessageConstrants();
+    private MessageConstants msgContrants = new MessageConstants();
     private MainView mainView = new MainView();
     private ItemListView bookListView = new ItemListView(new BookListMenuList(), new ItemList(new LibraryData().BOOK_LIST), "book");
     private ItemListView movieListView = new ItemListView(new MovieMenuList(), new ItemList(new LibraryData().MOVIE_LIST), "movie");
@@ -82,6 +80,7 @@ public class Controller {
             routerToItemListView(itemListView);
             return;
         }
+
         String itemName = itemListView.getItemName();
         ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_CHECKOUT(itemName));
         String itemId = userInputString();

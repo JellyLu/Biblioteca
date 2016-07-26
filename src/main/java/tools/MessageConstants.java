@@ -3,7 +3,7 @@ package tools;
 /**
  * Created by yjlu@thoughtworks.com on 7/24/16.
  */
-public final class MessageConstrants {
+public final class MessageConstants {
     public final String MSG_WELCOME = "======Welcome to Biblioteca!======";
     public final String MSG_LOGIN = "======Please Login the Library======";
     public final String MSG_CHECKED_OUT_SUCCESSFUL(String itemName) {

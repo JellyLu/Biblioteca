@@ -3,8 +3,6 @@ package views;
 import model.MainMenuList;
 import model.MenuItem;
 import model.MenuList;
-import tools.ConsoleTool;
-import tools.MessageConstrants;
 
 import java.util.List;
 
