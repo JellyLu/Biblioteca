@@ -8,7 +8,9 @@ import views.*;
 
 import java.util.List;
 
+import static com.sun.tools.doclint.Entity.ge;
 import static java.lang.System.exit;
+import static java.lang.System.in;
 
 /**
  * Created by yjlu@thoughtworks.com on 7/24/16.
@@ -16,8 +18,8 @@ import static java.lang.System.exit;
 public class Controller {
     private MessageConstrants msgContrants = new MessageConstrants();
     private MainView mainView = new MainView();
-    private ItemListView bookListView = new ItemListView(new BookListMenuList(), new ItemList(new LibraryData().BOOK_LIST));
-    private ItemListView movieListView = new ItemListView(new MovieMenuList(), new ItemList(new LibraryData().MOVIE_LIST));
+    private ItemListView bookListView = new ItemListView(new BookListMenuList(), new ItemList(new LibraryData().BOOK_LIST), "book");
+    private ItemListView movieListView = new ItemListView(new MovieMenuList(), new ItemList(new LibraryData().MOVIE_LIST), "movie");
     private LoginView loginView = new LoginView();
     private AccountView accountView;
 
@@ -74,37 +76,40 @@ public class Controller {
         return ConsoleTool.inputFromConsole();
     }
 
-    private void checkOut(ItemListView itemListView, String itemName) throws Exception {
+    private void checkOut(ItemListView itemListView) throws Exception {
         if (itemListView.showItemList().isEmpty()) {
             ConsoleTool.logln(msgContrants.MSG_NO_ITEM_TO_CHECK_OUT);
-            routerToItemListView(itemListView, itemName);
+            routerToItemListView(itemListView);
             return;
         }
+        String itemName = itemListView.getItemName();
         ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_CHECKOUT(itemName));
         String itemId = userInputString();
-        if ( bookListView.checkOutItem(itemId)) {
+        if ( itemListView.checkOutItem(itemId)) {
             ConsoleTool.logln(msgContrants.MSG_CHECKED_OUT_SUCCESSFUL(itemName));
-            routerToItemListView(itemListView, itemName);
+            routerToItemListView(itemListView);
         } else {
             ConsoleTool.logln(msgContrants.ERR_INVALID_ITEM_FOR_CHECKED_OUT(itemName));
-            checkOut(itemListView, itemName);
+            checkOut(itemListView);
         }
     }
 
-    private void returnFor(ItemListView itemListView, String itemName) throws Exception {
-        if (bookListView.checkedOutItemList().isEmpty()) {
+    private void returnFor(ItemListView itemListView) throws Exception {
+        String itemName = itemListView.getItemName();
+        if (itemListView.checkedOutItemList().isEmpty()) {
             ConsoleTool.logln(msgContrants.MSG_NO_ITEM_TO_RETURN(itemName));
-            routerToItemListView(itemListView, itemName);
+            routerToItemListView(itemListView);
             return;
         }
+
         ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_RETURN(itemName));
-        String bookId = userInputString();
-        if ( bookListView.returnItem(bookId)) {
+        String itemId = userInputString();
+        if ( itemListView.returnItem(itemId)) {
             ConsoleTool.logln(msgContrants.MSG_RETURN_ITEM_SUCCESSFUL(itemName));
-            routerToItemListView(itemListView, itemName);
+            routerToItemListView(itemListView);
         } else {
             ConsoleTool.logln(msgContrants.ERR_INVALID_ITEM_FOR_RETURN(itemName));
-            returnFor(itemListView, itemName);
+            returnFor(itemListView);
         }
     }
 
@@ -114,10 +119,10 @@ public class Controller {
                 exit(0);
                 break;
             case 1:
-                routerToItemListView(bookListView, "book");
+                routerToItemListView(bookListView);
                 break;
             case 2:
-                routerToItemListView(movieListView, "movie");
+                routerToItemListView(movieListView);
                 break;
             case 3:
                 routToAccountView();
@@ -129,7 +134,7 @@ public class Controller {
         }
     }
 
-    private void actionForItemListMenuOption(ItemListView itemListView, String itemName, int index) throws Exception {
+    private void actionForItemListMenuOption(ItemListView itemListView, int index) throws Exception {
         switch (index) {
             case 0:
                 exit(0);
@@ -138,10 +143,10 @@ public class Controller {
                 routerToMainView();
                 break;
             case 2:
-                checkOut(itemListView, itemName);
+                checkOut(itemListView);
                 break;
             case 3:
-                returnFor(itemListView, itemName);
+                returnFor(itemListView);
                 break;
             default:
                 ConsoleTool.logln(msgContrants.ERR_INVALID_MENU_OPTION);
@@ -159,14 +164,14 @@ public class Controller {
                 routerToMainView();
                 break;
             case 2:
-                routerToItemListView(bookListView, "book");
+                routerToItemListView(bookListView);
                 break;
             case 3:
-                routerToItemListView(movieListView, "movie");
+                routerToItemListView(movieListView);
                 break;
             default:
                 ConsoleTool.logln(msgContrants.ERR_INVALID_MENU_OPTION);
-                showItemListView(bookListView);
+                showAccountView();
                 break;
         }
     }
@@ -188,10 +193,10 @@ public class Controller {
         actionForMainMenuOption(menuOption);
     }
 
-    public void routerToItemListView(ItemListView itemListView, String itemName) throws Exception {
+    public void routerToItemListView(ItemListView itemListView) throws Exception {
         showItemListView(itemListView);
         int menuOption = userInputInt();
-        actionForItemListMenuOption(itemListView, itemName, menuOption);
+        actionForItemListMenuOption(itemListView, menuOption);
     }
 
     public void routToAccountView() throws Exception {

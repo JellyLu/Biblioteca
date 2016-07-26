@@ -11,10 +11,16 @@ import java.util.List;
 public class ItemListView {
     private MenuList menu;
     private ItemList itemList;
+    private String itemName;
 
-    public ItemListView(MenuList menu, ItemList itemList) {
+    public ItemListView(MenuList menu, ItemList itemList, String itemName) {
         this.menu = menu;
         this.itemList = itemList;
+        this.itemName = itemName;
+    }
+
+    public String getItemName() {
+        return itemName;
     }
 
     public List<MenuItem> menuList() {
