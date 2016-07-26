@@ -8,12 +8,18 @@ public final class Book implements Item {
     private String bookName;
     private String author;
     private int year;
+    private String userId;
 
     public Book(String id, String bookName, String author, int year) {
         this.id = id;
         this.bookName = bookName;
         this.author = author;
         this.year = year;
+        this.userId = "";
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public String getBookName() {

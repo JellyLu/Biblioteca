@@ -40,27 +40,15 @@ public class Controller {
         ConsoleTool.log(msgContrants.MSG_USER_SELECT_MENU);
     }
 
-    private void showBookList(List<Item> bookList) {
-        for (Item book: bookList) {
-            ConsoleTool.logln(book.description());
+    private void showItemList(List<Item> itemList) {
+        for (Item item: itemList) {
+            ConsoleTool.logln(item.description());
         }
     }
 
-    private void showBookListView() {
-        showBookList(bookListView.showItemList());
-        showMenu(bookListView.menuList());
-        ConsoleTool.log(msgContrants.MSG_USER_SELECT_MENU);
-    }
-
-    private void showMovieList(List<Item> movieList) {
-        for (Item movie: movieList) {
-            ConsoleTool.logln(movie.description());
-        }
-    }
-
-    private void showMovieListView() {
-        showMovieList(movieListView.showItemList());
-        showMenu(movieListView.menuList());
+    private void showItemListView(ItemListView itemListView) {
+        showItemList(itemListView.showItemList());
+        showMenu(itemListView.menuList());
         ConsoleTool.log(msgContrants.MSG_USER_SELECT_MENU);
     }
 
@@ -191,7 +179,7 @@ public class Controller {
                 break;
             default:
                 ConsoleTool.logln(msgContrants.ERR_INVALID_MENU_OPTION);
-                showBookListView();
+                showItemListView(bookListView);
                 break;
         }
     }
@@ -212,7 +200,7 @@ public class Controller {
                 break;
             default:
                 ConsoleTool.logln(msgContrants.ERR_INVALID_MENU_OPTION);
-                showMovieListView();
+                showItemListView(movieListView);
                 break;
         }
     }
@@ -233,7 +221,7 @@ public class Controller {
                 break;
             default:
                 ConsoleTool.logln(msgContrants.ERR_INVALID_MENU_OPTION);
-                showBookListView();
+                showItemListView(bookListView);
                 break;
         }
     }
@@ -256,13 +244,13 @@ public class Controller {
     }
 
     public void routerToBookListView() throws Exception {
-        showBookListView();
+        showItemListView(bookListView);
         int menuOption = userInputInt();
         actionForBookListMenuOption(menuOption);
     }
 
     public void routerToMovieListView() throws Exception {
-        showMovieListView();
+        showItemListView(movieListView);
         int menuOption = userInputInt();
         actionForMovieListMenuOption(menuOption);
     }
