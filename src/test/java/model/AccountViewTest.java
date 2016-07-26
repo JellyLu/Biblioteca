@@ -21,6 +21,6 @@ public class AccountViewTest {
     public void should_return_right_description_when_user_exit() {
         AccountView accountView = new AccountView(new User("xxx-0001", "Joy", "Test1234", "joy@thoughtworks.com", "15881616205"));
 
-        assertThat(accountView.description(), is("[Library number]: xxx-0001, [name]: Joy, [Email]: joy@thougtworks.com, [Tel]: 15881616205"));
+        assertThat(accountView.description(), is("[Library number]: xxx-0001, [name]: Joy, [Email]: joy@thoughtworks.com, [Tel]: 15881616205"));
     }
 }

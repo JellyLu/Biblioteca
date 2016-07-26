@@ -1,5 +1,6 @@
 package controller;
 
+import data.LibraryData;
 import model.*;
 import tools.ConsoleTool;
 import tools.MessageConstrants;
@@ -15,8 +16,8 @@ import static java.lang.System.exit;
 public class Controller {
     private MessageConstrants msgContrants = new MessageConstrants();
     private MainView mainView = new MainView();
-    private BookListView bookListView = new BookListView();
-    private MovieListView movieListView = new MovieListView();
+    private ItemListView bookListView = new ItemListView(new BookListMenuList(), new ItemList(new LibraryData().BOOK_LIST));
+    private ItemListView movieListView = new ItemListView(new MovieMenuList(), new ItemList(new LibraryData().MOVIE_LIST));
     private LoginView loginView = new LoginView();
     private AccountView accountView;
 
