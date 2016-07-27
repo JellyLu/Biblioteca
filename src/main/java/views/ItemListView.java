@@ -35,9 +35,10 @@ public class ItemListView {
         return itemList.getCheckedOutItemList();
     }
 
-    public boolean checkOutItem(String bookId) throws Exception {
+    public boolean checkOutItem(String bookId, String userId) throws Exception {
         for (Item item: itemList.getShowItemList()) {
             if (item.getId().equals(bookId)) {
+                item.setUserId(userId);
                 return itemList.removeItemFromShowItemList(item);
             }
         }
@@ -52,6 +53,7 @@ public class ItemListView {
 
         for (Item item: checkedOutItemList) {
             if (item.getId().equals(bookId)) {
+                item.setUserId("");
                 return itemList.removeItemFromCheckedOutItemList(item);
             }
         }

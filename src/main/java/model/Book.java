@@ -8,14 +8,13 @@ public final class Book implements Item {
     private String bookName;
     private String author;
     private int year;
-    private String userId;
+    private String userId = "";
 
     public Book(String id, String bookName, String author, int year) {
         this.id = id;
         this.bookName = bookName;
         this.author = author;
         this.year = year;
-        this.userId = "";
     }
 
     public String getUserId() {
@@ -37,6 +36,11 @@ public final class Book implements Item {
     @Override
     public String getId() {
         return id;
+    }
+
+    @Override
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String description() {

@@ -26,6 +26,10 @@ public class AccountView {
         return user;
     }
 
+    public String getUserId() {
+        return user.getId();
+    }
+
     public String description() {
         if (user == null) return "";
         return user.description();

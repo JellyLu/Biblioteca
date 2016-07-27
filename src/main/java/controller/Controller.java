@@ -14,7 +14,7 @@ import static java.lang.System.exit;
  * Created by yjlu@thoughtworks.com on 7/24/16.
  */
 public class Controller {
-    private MessageConstants msgContrants = new MessageConstants();
+    private MessageConstants msgConstants = new MessageConstants();
     private MainView mainView = new MainView();
     private ItemListView bookListView = new ItemListView(new BookListMenuList(), new ItemList(new LibraryData().BOOK_LIST), "book");
     private ItemListView movieListView = new ItemListView(new MovieMenuList(), new ItemList(new LibraryData().MOVIE_LIST), "movie");
@@ -25,7 +25,7 @@ public class Controller {
     private String password = "";
 
     private void welcome() throws Exception {
-        ConsoleTool.logln(msgContrants.MSG_WELCOME);
+        ConsoleTool.logln(msgConstants.MSG_WELCOME);
         routToLoginView();
     }
 
@@ -37,7 +37,7 @@ public class Controller {
 
     private void showMainView() {
         showMenu(mainView.menuList());
-        ConsoleTool.log(msgContrants.MSG_USER_SELECT_MENU);
+        ConsoleTool.log(msgConstants.MSG_USER_SELECT_MENU);
     }
 
     private void showItemList(List<Item> itemList) {
@@ -49,21 +49,21 @@ public class Controller {
     private void showItemListView(ItemListView itemListView) {
         showItemList(itemListView.showItemList());
         showMenu(itemListView.menuList());
-        ConsoleTool.log(msgContrants.MSG_USER_SELECT_MENU);
+        ConsoleTool.log(msgConstants.MSG_USER_SELECT_MENU);
     }
 
     private void showLoginView() {
-        ConsoleTool.logln(msgContrants.MSG_LOGIN);
-        ConsoleTool.log(msgContrants.MSG_USER_INPUT_LIBRARY_NUMBER);
+        ConsoleTool.logln(msgConstants.MSG_LOGIN);
+        ConsoleTool.log(msgConstants.MSG_USER_INPUT_LIBRARY_NUMBER);
         userName = userInputString();
-        ConsoleTool.log(msgContrants.MSG_USER_INPUT_PASSWORD);
+        ConsoleTool.log(msgConstants.MSG_USER_INPUT_PASSWORD);
         password = userInputString();
     }
 
     private void showAccountView() {
         ConsoleTool.logln(accountView.description());
         showMenu(accountView.menuList());
-        ConsoleTool.log(msgContrants.MSG_USER_SELECT_MENU);
+        ConsoleTool.log(msgConstants.MSG_USER_SELECT_MENU);
     }
 
     private int userInputInt() {
@@ -76,19 +76,19 @@ public class Controller {
 
     private void checkOut(ItemListView itemListView) throws Exception {
         if (itemListView.showItemList().isEmpty()) {
-            ConsoleTool.logln(msgContrants.MSG_NO_ITEM_TO_CHECK_OUT);
+            ConsoleTool.logln(msgConstants.MSG_NO_ITEM_TO_CHECK_OUT);
             routerToItemListView(itemListView);
             return;
         }
 
         String itemName = itemListView.getItemName();
-        ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_CHECKOUT(itemName));
+        ConsoleTool.log(msgConstants.MSG_USER_INPUT_FOR_CHECKOUT(itemName));
         String itemId = userInputString();
-        if ( itemListView.checkOutItem(itemId)) {
-            ConsoleTool.logln(msgContrants.MSG_CHECKED_OUT_SUCCESSFUL(itemName));
+        if ( itemListView.checkOutItem(itemId, accountView.getUserId())) {
+            ConsoleTool.logln(msgConstants.MSG_CHECKED_OUT_SUCCESSFUL(itemName));
             routerToItemListView(itemListView);
         } else {
-            ConsoleTool.logln(msgContrants.ERR_INVALID_ITEM_FOR_CHECKED_OUT(itemName));
+            ConsoleTool.logln(msgConstants.ERR_INVALID_ITEM_FOR_CHECKED_OUT(itemName));
             checkOut(itemListView);
         }
     }
@@ -96,18 +96,18 @@ public class Controller {
     private void returnFor(ItemListView itemListView) throws Exception {
         String itemName = itemListView.getItemName();
         if (itemListView.checkedOutItemList().isEmpty()) {
-            ConsoleTool.logln(msgContrants.MSG_NO_ITEM_TO_RETURN(itemName));
+            ConsoleTool.logln(msgConstants.MSG_NO_ITEM_TO_RETURN(itemName));
             routerToItemListView(itemListView);
             return;
         }
 
-        ConsoleTool.log(msgContrants.MSG_USER_INPUT_FOR_RETURN(itemName));
+        ConsoleTool.log(msgConstants.MSG_USER_INPUT_FOR_RETURN(itemName));
         String itemId = userInputString();
         if ( itemListView.returnItem(itemId)) {
-            ConsoleTool.logln(msgContrants.MSG_RETURN_ITEM_SUCCESSFUL(itemName));
+            ConsoleTool.logln(msgConstants.MSG_RETURN_ITEM_SUCCESSFUL(itemName));
             routerToItemListView(itemListView);
         } else {
-            ConsoleTool.logln(msgContrants.ERR_INVALID_ITEM_FOR_RETURN(itemName));
+            ConsoleTool.logln(msgConstants.ERR_INVALID_ITEM_FOR_RETURN(itemName));
             returnFor(itemListView);
         }
     }
@@ -127,7 +127,7 @@ public class Controller {
                 routToAccountView();
                 break;
             default:
-                ConsoleTool.logln(msgContrants.ERR_INVALID_MENU_OPTION);
+                ConsoleTool.logln(msgConstants.ERR_INVALID_MENU_OPTION);
                 showMainView();
                 break;
         }
@@ -148,8 +148,8 @@ public class Controller {
                 returnFor(itemListView);
                 break;
             default:
-                ConsoleTool.logln(msgContrants.ERR_INVALID_MENU_OPTION);
-                showItemListView(bookListView);
+                ConsoleTool.logln(msgConstants.ERR_INVALID_MENU_OPTION);
+                showItemListView(itemListView);
                 break;
         }
     }
@@ -169,7 +169,7 @@ public class Controller {
                 routerToItemListView(movieListView);
                 break;
             default:
-                ConsoleTool.logln(msgContrants.ERR_INVALID_MENU_OPTION);
+                ConsoleTool.logln(msgConstants.ERR_INVALID_MENU_OPTION);
                 showAccountView();
                 break;
         }
@@ -181,7 +181,7 @@ public class Controller {
             accountView = new AccountView(loginView.getUser());
             routerToMainView();
         } else {
-            ConsoleTool.logln(msgContrants.ERR_LOGIN_FAILED);
+            ConsoleTool.logln(msgConstants.ERR_LOGIN_FAILED);
             routToLoginView();
         }
     }

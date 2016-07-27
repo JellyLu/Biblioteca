@@ -9,6 +9,7 @@ public class Movie implements Item {
     private String director;
     private int year;
     private double rating = 0;
+    private String userId = "";
 
     public Movie(String id, String name, String director, int year, double rating) {
         this.id = id;
@@ -27,6 +28,11 @@ public class Movie implements Item {
 
     public String getId() {
         return id;
+    }
+
+    @Override
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getName() {
