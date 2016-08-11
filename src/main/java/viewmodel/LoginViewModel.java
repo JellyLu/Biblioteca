@@ -1,15 +1,14 @@
-package views;
+package viewmodel;
 
 import data.LibraryData;
 import model.User;
-import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.util.List;
 
 /**
  * Created by yjlu@thoughtworks.com on 7/25/16.
  */
-public class LoginView {
+public class LoginViewModel {
     private User user;
 
     private User getUserById(String userId) {

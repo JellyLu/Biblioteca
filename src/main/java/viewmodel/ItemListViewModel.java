@@ -1,6 +1,5 @@
-package views;
+package viewmodel;
 
-import data.LibraryData;
 import model.*;
 
 import java.util.List;
@@ -8,12 +7,12 @@ import java.util.List;
 /**
  * Created by yjlu@thoughtworks.com on 7/27/16.
  */
-public class ItemListView {
+public class ItemListViewModel {
     private MenuList menu;
     private ItemList itemList;
     private String itemName;
 
-    public ItemListView(MenuList menu, ItemList itemList, String itemName) {
+    public ItemListViewModel(MenuList menu, ItemList itemList, String itemName) {
         this.menu = menu;
         this.itemList = itemList;
         this.itemName = itemName;

@@ -1,4 +1,4 @@
-package views;
+package viewmodel;
 
 import model.AccountMenuList;
 import model.MenuItem;
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by yjlu@thoughtworks.com on 7/25/16.
  */
-public class AccountView {
+public class AccountViewModel {
     private User user;
     private MenuList menuList = new AccountMenuList();
 
@@ -18,7 +18,7 @@ public class AccountView {
         return menuList.getList();
     }
 
-    public AccountView(User user) {
+    public AccountViewModel(User user) {
         this.user = user;
     }
 

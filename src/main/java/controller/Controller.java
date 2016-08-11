@@ -4,7 +4,9 @@ import data.LibraryData;
 import model.*;
 import tools.ConsoleTool;
 import tools.MessageConstants;
-import views.*;
+import tools.ShowMenu;
+import view.MainView;
+import viewmodel.*;
 
 import java.util.List;
 
@@ -16,10 +18,11 @@ import static java.lang.System.exit;
 public class Controller {
     private MessageConstants msgConstants = new MessageConstants();
     private MainView mainView = new MainView();
-    private ItemListView bookListView = new ItemListView(new BookListMenuList(), new ItemList(new LibraryData().BOOK_LIST), "book");
-    private ItemListView movieListView = new ItemListView(new MovieMenuList(), new ItemList(new LibraryData().MOVIE_LIST), "movie");
-    private LoginView loginView = new LoginView();
-    private AccountView accountView;
+
+    private ItemListViewModel bookListView = new ItemListViewModel(new BookListMenuList(), new ItemList(new LibraryData().BOOK_LIST), "book");
+    private ItemListViewModel movieListView = new ItemListViewModel(new MovieMenuList(), new ItemList(new LibraryData().MOVIE_LIST), "movie");
+    private LoginViewModel loginViewModel = new LoginViewModel();
+    private AccountViewModel accountViewModel;
 
     private String userName = "";
     private String password = "";
@@ -29,26 +32,15 @@ public class Controller {
         routToLoginView();
     }
 
-    private void showMenu(List<MenuItem> menuItemList) {
-        for (MenuItem item: menuItemList) {
-            ConsoleTool.logln(item.describe);
-        }
-    }
-
-    private void showMainView() {
-        showMenu(mainView.menuList());
-        ConsoleTool.log(msgConstants.MSG_USER_SELECT_MENU);
-    }
-
     private void showItemList(List<Item> itemList) {
         for (Item item: itemList) {
             ConsoleTool.logln(item.description());
         }
     }
 
-    private void showItemListView(ItemListView itemListView) {
-        showItemList(itemListView.showItemList());
-        showMenu(itemListView.menuList());
+    private void showItemListView(ItemListViewModel itemListViewModel) {
+        showItemList(itemListViewModel.showItemList());
+        ShowMenu.show(itemListViewModel.menuList());
         ConsoleTool.log(msgConstants.MSG_USER_SELECT_MENU);
     }
 
@@ -61,8 +53,8 @@ public class Controller {
     }
 
     private void showAccountView() {
-        ConsoleTool.logln(accountView.description());
-        showMenu(accountView.menuList());
+        ConsoleTool.logln(accountViewModel.description());
+        ShowMenu.show(accountViewModel.menuList());
         ConsoleTool.log(msgConstants.MSG_USER_SELECT_MENU);
     }
 
@@ -74,41 +66,41 @@ public class Controller {
         return ConsoleTool.inputFromConsole();
     }
 
-    private void checkOut(ItemListView itemListView) throws Exception {
-        if (itemListView.showItemList().isEmpty()) {
+    private void checkOut(ItemListViewModel itemListViewModel) throws Exception {
+        if (itemListViewModel.showItemList().isEmpty()) {
             ConsoleTool.logln(msgConstants.MSG_NO_ITEM_TO_CHECK_OUT);
-            routerToItemListView(itemListView);
+            routerToItemListView(itemListViewModel);
             return;
         }
 
-        String itemName = itemListView.getItemName();
+        String itemName = itemListViewModel.getItemName();
         ConsoleTool.log(msgConstants.MSG_USER_INPUT_FOR_CHECKOUT(itemName));
         String itemId = userInputString();
-        if ( itemListView.checkOutItem(itemId, accountView.getUserId())) {
+        if ( itemListViewModel.checkOutItem(itemId, accountViewModel.getUserId())) {
             ConsoleTool.logln(msgConstants.MSG_CHECKED_OUT_SUCCESSFUL(itemName));
-            routerToItemListView(itemListView);
+            routerToItemListView(itemListViewModel);
         } else {
             ConsoleTool.logln(msgConstants.ERR_INVALID_ITEM_FOR_CHECKED_OUT(itemName));
-            checkOut(itemListView);
+            checkOut(itemListViewModel);
         }
     }
 
-    private void returnFor(ItemListView itemListView) throws Exception {
-        String itemName = itemListView.getItemName();
-        if (itemListView.checkedOutItemList().isEmpty()) {
+    private void returnFor(ItemListViewModel itemListViewModel) throws Exception {
+        String itemName = itemListViewModel.getItemName();
+        if (itemListViewModel.checkedOutItemList().isEmpty()) {
             ConsoleTool.logln(msgConstants.MSG_NO_ITEM_TO_RETURN(itemName));
-            routerToItemListView(itemListView);
+            routerToItemListView(itemListViewModel);
             return;
         }
 
         ConsoleTool.log(msgConstants.MSG_USER_INPUT_FOR_RETURN(itemName));
         String itemId = userInputString();
-        if ( itemListView.returnItem(itemId)) {
+        if ( itemListViewModel.returnItem(itemId)) {
             ConsoleTool.logln(msgConstants.MSG_RETURN_ITEM_SUCCESSFUL(itemName));
-            routerToItemListView(itemListView);
+            routerToItemListView(itemListViewModel);
         } else {
             ConsoleTool.logln(msgConstants.ERR_INVALID_ITEM_FOR_RETURN(itemName));
-            returnFor(itemListView);
+            returnFor(itemListViewModel);
         }
     }
 
@@ -128,12 +120,12 @@ public class Controller {
                 break;
             default:
                 ConsoleTool.logln(msgConstants.ERR_INVALID_MENU_OPTION);
-                showMainView();
+                mainView.showMainView();
                 break;
         }
     }
 
-    private void actionForItemListMenuOption(ItemListView itemListView, int index) throws Exception {
+    private void actionForItemListMenuOption(ItemListViewModel itemListViewModel, int index) throws Exception {
         switch (index) {
             case 0:
                 exit(0);
@@ -142,14 +134,14 @@ public class Controller {
                 routerToMainView();
                 break;
             case 2:
-                checkOut(itemListView);
+                checkOut(itemListViewModel);
                 break;
             case 3:
-                returnFor(itemListView);
+                returnFor(itemListViewModel);
                 break;
             default:
                 ConsoleTool.logln(msgConstants.ERR_INVALID_MENU_OPTION);
-                showItemListView(itemListView);
+                showItemListView(itemListViewModel);
                 break;
         }
     }
@@ -177,8 +169,8 @@ public class Controller {
 
     private void routToLoginView() throws Exception {
         showLoginView();
-        if (loginView.login(userName, password)) {
-            accountView = new AccountView(loginView.getUser());
+        if (loginViewModel.login(userName, password)) {
+            accountViewModel = new AccountViewModel(loginViewModel.getUser());
             routerToMainView();
         } else {
             ConsoleTool.logln(msgConstants.ERR_LOGIN_FAILED);
@@ -187,15 +179,15 @@ public class Controller {
     }
 
     public void routerToMainView() throws Exception {
-        showMainView();
+        mainView.showMainView();
         int menuOption = userInputInt();
         actionForMainMenuOption(menuOption);
     }
 
-    public void routerToItemListView(ItemListView itemListView) throws Exception {
-        showItemListView(itemListView);
+    public void routerToItemListView(ItemListViewModel itemListViewModel) throws Exception {
+        showItemListView(itemListViewModel);
         int menuOption = userInputInt();
-        actionForItemListMenuOption(itemListView, menuOption);
+        actionForItemListMenuOption(itemListViewModel, menuOption);
     }
 
     public void routToAccountView() throws Exception {

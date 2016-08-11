@@ -1,8 +1,7 @@
-package model;
+package viewmodel;
 
 import org.junit.Before;
 import org.junit.Test;
-import views.LoginView;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -11,30 +10,30 @@ import static org.hamcrest.core.Is.is;
 /**
  * Created by yjlu@thoughtworks.com on 7/25/16.
  */
-public class LoginViewTest {
-    private LoginView loginView;
+public class LoginViewModelTest {
+    private LoginViewModel loginViewModel;
     @Before
     public void setUp() {
-        loginView = new LoginView();
+        loginViewModel = new LoginViewModel();
     }
 
     @Test
     public void should_return_true_when_userId_exist_and_password_right() {
-        boolean isLogin = loginView.login("xxx-0001", "Test1234");
+        boolean isLogin = loginViewModel.login("xxx-0001", "Test1234");
 
         assertThat(isLogin, is(true));
     }
 
     @Test
     public void should_return_false_when_userId_exist_and_password_wrong() {
-        boolean isLogin = loginView.login("xxx-0001", "1234Test");
+        boolean isLogin = loginViewModel.login("xxx-0001", "1234Test");
 
         assertThat(isLogin, is(false));
     }
 
     @Test
     public void should_return_true_when_userId_not_exist() {
-        boolean isLogin = loginView.login("xxx-xxxx", "Test1234");
+        boolean isLogin = loginViewModel.login("xxx-xxxx", "Test1234");
 
         assertThat(isLogin, is(false));
     }
