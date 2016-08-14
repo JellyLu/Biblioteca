@@ -58,4 +58,12 @@ public class ItemListViewModel {
         }
         return false;
     }
+
+    public boolean unableCheckOut() {
+       return showItemList().isEmpty();
+    }
+
+    public boolean unableReturn() {
+        return checkedOutItemList().isEmpty();
+    }
 }

@@ -19,4 +19,8 @@ public class AccountView extends SuperView{
         ShowMenu.show(accountViewModel.menuList());
         ConsoleTool.log(msgConstants.MSG_USER_SELECT_MENU);
     }
+
+    public AccountViewModel getViewModel() {
+        return accountViewModel;
+    }
 }
