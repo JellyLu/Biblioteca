@@ -5,6 +5,7 @@ import model.*;
 import tools.ConsoleTool;
 import tools.MessageConstants;
 import tools.ShowMenu;
+import view.AccountView;
 import view.LoginView;
 import view.MainView;
 import viewmodel.*;
@@ -20,10 +21,10 @@ public class Controller {
     private MessageConstants msgConstants = new MessageConstants();
     private MainView mainView = new MainView();
     private LoginView loginView = new LoginView();
+    private AccountView accountView = new AccountView();
 
     private ItemListViewModel bookListView = new ItemListViewModel(new BookListMenuList(), new ItemList(new LibraryData().BOOK_LIST), "book");
     private ItemListViewModel movieListView = new ItemListViewModel(new MovieMenuList(), new ItemList(new LibraryData().MOVIE_LIST), "movie");
-    private AccountViewModel accountViewModel;
 
     private void showItemList(List<Item> itemList) {
         for (Item item: itemList) {
@@ -34,12 +35,6 @@ public class Controller {
     private void showItemListView(ItemListViewModel itemListViewModel) {
         showItemList(itemListViewModel.showItemList());
         ShowMenu.show(itemListViewModel.menuList());
-        ConsoleTool.log(msgConstants.MSG_USER_SELECT_MENU);
-    }
-
-    private void showAccountView() {
-        ConsoleTool.logln(accountViewModel.description());
-        ShowMenu.show(accountViewModel.menuList());
         ConsoleTool.log(msgConstants.MSG_USER_SELECT_MENU);
     }
 
@@ -165,13 +160,14 @@ public class Controller {
     }
 
     public void routeToAccountView() throws Exception {
-        showAccountView();
+        accountView.showAccountView();
         int menuOption = userInputInt();
         actionForAccountMenuOption(menuOption);
     }
 
     public void startSystem() throws Exception {
-        accountViewModel = loginView.welcome();
+        AccountViewModel accountViewModel = loginView.welcome();
+        accountView.bindViewModel(accountViewModel);
         routeToMainView();
     }
 
