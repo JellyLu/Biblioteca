@@ -32,6 +32,7 @@ public final class LibraryData {
     public final List<User> USER_LIST = new ArrayList<User>(){{
         add(new User("xxx-0001", "Joy", "Test1234", "joy@thougtworks.com", "15881616205"));
         add(new User("xxx-0002", "Jelly", "Test1234", "jelly@thougtworks.com", "15881616206"));
+        add(new User("x", "J", " ", "j@thougtworks.com", "15881616207"));
     }};
 }
 
