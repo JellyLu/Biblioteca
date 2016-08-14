@@ -5,6 +5,7 @@ import model.*;
 import tools.ConsoleTool;
 import tools.MessageConstants;
 import tools.ShowMenu;
+import view.LoginView;
 import view.MainView;
 import viewmodel.*;
 
@@ -18,19 +19,16 @@ import static java.lang.System.exit;
 public class Controller {
     private MessageConstants msgConstants = new MessageConstants();
     private MainView mainView = new MainView();
+    private LoginView loginView = new LoginView();
 
     private ItemListViewModel bookListView = new ItemListViewModel(new BookListMenuList(), new ItemList(new LibraryData().BOOK_LIST), "book");
     private ItemListViewModel movieListView = new ItemListViewModel(new MovieMenuList(), new ItemList(new LibraryData().MOVIE_LIST), "movie");
-    private LoginViewModel loginViewModel = new LoginViewModel();
+//    private LoginViewModel loginViewModel = new LoginViewModel();
     private AccountViewModel accountViewModel;
+
 
     private String userName = "";
     private String password = "";
-
-    private void welcome() throws Exception {
-        ConsoleTool.logln(msgConstants.MSG_WELCOME);
-        routToLoginView();
-    }
 
     private void showItemList(List<Item> itemList) {
         for (Item item: itemList) {
@@ -42,14 +40,6 @@ public class Controller {
         showItemList(itemListViewModel.showItemList());
         ShowMenu.show(itemListViewModel.menuList());
         ConsoleTool.log(msgConstants.MSG_USER_SELECT_MENU);
-    }
-
-    private void showLoginView() {
-        ConsoleTool.logln(msgConstants.MSG_LOGIN);
-        ConsoleTool.log(msgConstants.MSG_USER_INPUT_LIBRARY_NUMBER);
-        userName = userInputString();
-        ConsoleTool.log(msgConstants.MSG_USER_INPUT_PASSWORD);
-        password = userInputString();
     }
 
     private void showAccountView() {
@@ -167,17 +157,6 @@ public class Controller {
         }
     }
 
-    private void routToLoginView() throws Exception {
-        showLoginView();
-        if (loginViewModel.login(userName, password)) {
-            accountViewModel = new AccountViewModel(loginViewModel.getUser());
-            routerToMainView();
-        } else {
-            ConsoleTool.logln(msgConstants.ERR_LOGIN_FAILED);
-            routToLoginView();
-        }
-    }
-
     public void routerToMainView() throws Exception {
         mainView.showMainView();
         int menuOption = userInputInt();
@@ -196,9 +175,14 @@ public class Controller {
         actionForAccountMenuOption(menuOption);
     }
 
+    public void startSystem() throws Exception {
+        accountViewModel = loginView.welcome();
+        routerToMainView();
+    }
+
     public static void main(String[] args) {
         try {
-            new Controller().welcome();
+            new Controller().startSystem();
         } catch (Exception e) {
             ConsoleTool.logln(e.toString());
         }

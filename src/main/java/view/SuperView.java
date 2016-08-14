@@ -12,4 +12,11 @@ import java.util.List;
 public class SuperView {
 
     MessageConstants msgConstants = new MessageConstants();
+    public String userInputString() {
+        return ConsoleTool.inputFromConsole();
+    }
+
+    public int userInputInt() {
+        return Integer.parseInt(userInputString());
+    }
 }

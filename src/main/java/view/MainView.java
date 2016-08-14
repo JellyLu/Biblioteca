@@ -15,7 +15,7 @@ public class MainView extends SuperView {
 
      public void showMainView() {
          ShowMenu.show(mainViewModel.menuList());
-        ConsoleTool.log(msgConstants.MSG_USER_SELECT_MENU);
+         ConsoleTool.log(msgConstants.MSG_USER_SELECT_MENU);
     }
 
 }
